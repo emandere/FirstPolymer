@@ -1,0 +1,164 @@
+<link rel="import" href="../../packages/paper_elements/roboto.html">
+<link rel="import" href="../../packages/paper_elements/paper_dropdown_menu.html">
+<link rel="import" href="../../packages/paper_elements/paper_dropdown.html">
+<link rel="import" href="../../packages/paper_elements/paper_item.html">
+<link rel="import" href="../../packages/paper_elements/paper_icon_button.html">
+<link rel="import" href="../../packages/paper_elements/paper_dialog_transition.html">
+<link rel="import" href="../../packages/paper_elements/paper_action_dialog.html">
+<link rel="import" href="../../packages/paper_elements/paper_dialog.html">
+<link rel="import" href="../../packages/paper_elements/paper_fab.html">
+<link rel="import" href="../../packages/paper_elements/paper_spinner.html">
+
+<link rel="import" href="../../packages/core_elements/core_menu.html">
+<link rel="import" href="../../packages/core_elements/core_header_panel.html">
+<link rel="import" href="../../packages/core_elements/core_toolbar.html">
+<link rel="import" href="../../packages/core_elements/core_drawer_panel.html">
+<link rel="import" href="../../packages/core_elements/core_scaffold.html">
+<link rel="import" href="../../packages/core_elements/core_item.html">
+<link rel="import" href="../../packages/core_elements/core_pages.html">
+<link rel="import" href="../../packages/core_elements/core_animated_pages.html">
+<link rel="import" href="../../packages/core_elements/core_icons.html">
+<link rel="import" href="../../packages/core_elements/core_media_query.html">
+
+<polymer-element name="forex-app">
+    <template>
+        <style>
+            paper-button.colored {
+                color: #4285f4;
+            }
+
+            paper-button[raised].colored {
+                background: #4285f4;
+                color: #fff;
+            }
+            #menuheader
+            {
+                background-color: #56BA89;
+            }
+            core-header-panel
+            {
+                background: whitesmoke;
+            }
+            core-toolbar {
+                background-color: #03A9F4;
+            }
+            core-animated-pages {
+                display: block;
+                position: relative;
+                background-color: white;
+                padding: 20px;
+                width: 1000px;
+                height: 500px;
+                font-size: 1.2rem;
+                font-weight: 300;
+            }
+
+            html /deep/ .size-position {
+                position: fixed;
+                top: 16px;
+                right: 16px;
+            }
+
+            html /deep/ .scrolling::shadow #scroller {
+                height: 350px;
+            }
+
+            html /deep/ .size-position::shadow #scroller {
+                width: 300px;
+                height: 300px;
+            }
+
+            paper-fab.blue {
+                position: absolute;
+                bottom: 32px;
+                right: 16px;
+                background: #03A9F4;
+            }
+
+            paper-spinner.blue::shadow .circle {
+                border-color: #4285f4;
+            }
+
+
+        </style>
+
+
+        <core-drawer-panel id="drawerPanel">
+
+            <core-header-panel drawer>
+                <core-toolbar id="menuheader">
+                    <paper-icon-button id="naviconmenu" icon="arrow-back"></paper-icon-button>
+                    Menu
+                </core-toolbar>
+                <core-menu selected="0" selectedItem="{{item}}">
+                    <core-item icon="assessment" label="Monitor"></core-item>
+                    <core-item icon="trending-up" label="Predict"></core-item>
+                    <core-item icon="sort" label="Analyse"></core-item>
+                    <core-item icon="report-problem" label="Test"></core-item>
+                </core-menu>
+
+            </core-header-panel>
+
+            <core-header-panel main>
+                <core-toolbar id="mainheader">
+                    <paper-icon-button id="navicon" icon="menu"></paper-icon-button>
+                    <span flex>Manage Forex</span>
+                    <paper-icon-button id="searchbutton" icon="search"></paper-icon-button>
+                </core-toolbar>
+                <div layout horizontal center-center fit>
+                    <paper-dialog id="dialogChart"  class="scrolling" heading="Select Currency Pair">
+
+                        <!--<core-collapse id="collapse" allowOverflow="true">
+                        <paper-dropdown-menu label="Select Currency Pair"  layered="true">
+                            <paper-dropdown class="dropdown" layered="true">-->
+                        <paper-input id="startDate" label="Start Date" floatingLabel></paper-input>
+                        <paper-input id="endDate" label="End Date" floatingLabel></paper-input>
+                          <div style="overflow-y: scroll; height:100px;">
+                                <core-menu class="menu" id="menuPair" overflow-y>
+                                    <template repeat="{{currencyPairs}}">
+                                        <paper-item>{{}}</paper-item>
+                                    </template>
+                                </core-menu>
+                          </div>
+                            <!--</paper-dropdown>
+                        </paper-dropdown-menu>
+                        </core-collapse>
+                        -->
+                        <p>
+                            <paper-button raised class="colored" id="btnCharts" affirmative>Update Chart</paper-button>
+                            <paper-button raised class="colored" id="btnCancel" dismissive>Cancel</paper-button>
+                        </p>
+
+
+                    </paper-dialog>
+
+                    <core-animated-pages id="pages" selected="0" layout horizontal center>
+                        <div>
+                            <paper-spinner id="chartSpinner" active="false"></paper-spinner>
+
+                            <div id="historychart" >
+
+                            </div>
+
+                            <div id="historygramchart" >
+
+                            </div>
+
+                            <!--<paper-icon-button id="selectPair" icon="view-module"></paper-icon-button>-->
+                            <paper-fab mini id="selectPair" class="blue" icon="view-module"></paper-fab>
+
+                        </div>
+                        <!--<section layout vertical center-center>
+                            <div>{{item.label}}</div>
+                        </section>
+                        <section layout vertical center-center>
+                            <div>page</div>
+                        </section>-->
+                    </core-animated-pages>
+                </div>
+            </core-header-panel>
+
+        </core-drawer-panel>
+    </template>
+    <script type="application/dart" src="forex_app.dart"></script>
+</polymer-element>
